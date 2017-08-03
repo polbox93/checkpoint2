@@ -16,3 +16,13 @@ class AddressBook():
             self.addresses.append(address)
         else:
             raise TypeError('Address object must be an instance of Address class')
+
+
+    def find(self, search_phrase):
+        results_list = []
+
+        for element in self.addresses:
+            if search_phrase.lower() in element.get_full_address().lower():
+                results_list.append(element)
+
+        return results_list
