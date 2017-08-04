@@ -68,3 +68,29 @@ class AddressBook():
                 book.add_address(address)
 
         return book
+
+    @staticmethod
+    def list_to_save(book_to_save):
+        list_to_save = []
+
+        for address in book_to_save:
+            temp_list = []
+            if isinstance (address, WorkAddress):
+                temp_list = [address.person, address.city, address.street, address.house_no, address.company]
+                list_to_save.append(temp_list)
+            else:
+                temp_list = [address.person, address.city, address.street, address.house_no, '']
+                list_to_save.append(temp_list)
+
+        return list_to_save
+
+    @staticmethod
+    def save_to_csv(book_to_save):
+        filename = '{}.csv'.format(book_to_save.name)
+
+        list_to_save = list_to_save(book_to_save)
+
+        with open(filename, 'w') as csv_file:
+            writer = csv.writer(csv_file, delimiter=',')
+            for row in list_to_save:
+                writer.writerow(row)
